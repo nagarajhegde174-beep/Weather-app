@@ -32,9 +32,6 @@ public class WeatherController {
         RestTemplate restTemplate = new RestTemplate();
         WeatherResponse
 
-
-
-
         return url;
     }
 
