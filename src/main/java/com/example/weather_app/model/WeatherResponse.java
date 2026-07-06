@@ -1,7 +1,5 @@
 package com.example.weather_app.model;
 
-import com.sun.tools.javac.Main;
-
 import java.util.List;
 
 public class WeatherResponse {
