@@ -1,45 +1,20 @@
 <div align="center">
 
+<img src="https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png" height="60" alt="OpenWeatherMap" />
+
 # 🌤️ Weather App
 
-### Full Stack Weather Application — Spring Boot + React
+**Full Stack Weather Application — Spring Boot + React**
 
-[![Java](https://img.shields.io/badge/Java-21-orange?style=flat-square&logo=openjdk&logoColor=white)](https://openjdk.org/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.1-6DB33F?style=flat-square&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
-[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=flat-square&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
-[![Axios](https://img.shields.io/badge/Axios-HTTP%20Client-5A29E4?style=flat-square&logo=axios&logoColor=white)](https://axios-http.com/)
-[![Maven](https://img.shields.io/badge/Maven-Build-C71A36?style=flat-square&logo=apachemaven&logoColor=white)](https://maven.apache.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.3.1-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+[![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)](https://maven.apache.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-**Real-time weather forecasts powered by OpenWeatherMap API**
-
-</div>
-
----
-
-## 🖼️ UI Preview
-
-<div align="center">
-
-### 🌙 Dark Mode
-![Dark Mode UI](https://raw.githubusercontent.com/github/explore/main/topics/react/react.png)
-
-> Dashboard with glassmorphism cards, animated weather icons, gradient background
-
-</div>
-
----
-
-## 🌐 Powered By
-
-<div align="center">
-
-| | | | | |
-|:---:|:---:|:---:|:---:|:---:|
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="55" height="55" alt="Java"/> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" width="55" height="55" alt="Spring Boot"/> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="55" height="55" alt="React"/> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" width="55" height="55" alt="Vite"/> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" width="55" height="55" alt="Bootstrap"/> |
-| **Java 21** | **Spring Boot** | **React 18** | **Vite 5** | **Bootstrap 5** |
+*Real-time weather data and 5-day forecasts — powered by OpenWeatherMap API*
 
 </div>
 
@@ -47,111 +22,101 @@
 
 ## ✨ Features
 
-| | Feature | Description |
-|---|---|---|
-| 🌡️ | **Current Weather** | Temperature, Feels Like, Min/Max, Humidity, Pressure, Wind Speed |
-| 📅 | **5-Day Forecast** | Daily forecast cards with icon, temp, humidity, wind |
-| 🌅 | **Sun Info** | Sunrise, Sunset, Visibility, Cloud Coverage, Coordinates |
-| ⭐ | **Favorites** | Save and quick-search favorite cities — stored in LocalStorage |
-| 🕐 | **Search History** | Last 10 searches with timestamps, delete or clear all |
-| 🌗 | **Theme Toggle** | Dark / Light mode persisted in LocalStorage |
-| 🌡️ | **Unit Toggle** | Switch between Celsius and Fahrenheit |
-| 🔄 | **Refresh** | Re-fetch latest data without re-typing the city |
-| 📋 | **Copy Details** | One-click copy of full weather summary to clipboard |
-| 📱 | **Responsive** | Mobile, tablet and desktop ready |
+| Feature | Description |
+|---|---|
+| 🌡️ **Current Weather** | Temperature · Feels Like · Min/Max · Humidity · Pressure · Wind |
+| 📅 **5-Day Forecast** | Daily cards with weather icon, temp, humidity and wind |
+| 🌅 **Extra Details** | Sunrise · Sunset · Visibility · Cloud Cover · Coordinates |
+| ⭐ **Favourite Cities** | Add, remove and quick-search cities — saved in LocalStorage |
+| 🕐 **Search History** | Last 10 searches with timestamps — delete single or clear all |
+| 🌗 **Dark / Light Theme** | One-click toggle — preference saved in LocalStorage |
+| 🌡️ **°C / °F Toggle** | Switch temperature units instantly |
+| 🔄 **Refresh** | Re-fetch live data without retyping the city |
+| 📋 **Copy Summary** | Copy full weather details to clipboard in one click |
+| 📱 **Fully Responsive** | Works on mobile, tablet and desktop |
 
 ---
 
-## 🛠️ Tech Stack
+## 📸 Screenshots
 
-### Backend
-| Technology | Version | Purpose |
-|---|---|---|
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="20"/> Java | 21 | Core language |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" width="20"/> Spring Boot | 3.3.1 | Application framework |
-| Spring Web + RestTemplate | — | REST API & external HTTP calls |
-| Lombok | — | Boilerplate reduction |
-| Bean Validation | — | Input validation |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg" width="20"/> Maven | — | Build tool |
-
-### Frontend
-| Technology | Version | Purpose |
-|---|---|---|
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="20"/> React | 18 | UI library |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" width="20"/> Vite | 5 | Build tool & dev server |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" width="20"/> Bootstrap | 5 | Responsive UI & icons |
-| Axios | — | HTTP client |
-| React Router DOM | 6 | Client-side routing |
+<div align="center">
+  <img src="./screenshots/dark.png" alt="Weather App Dark Theme" width="48%" />
+  &nbsp;
+  <img src="./screenshots/light.png" alt="Weather App Light Theme" width="48%" />
+</div>
 
 ---
 
-## 🏗️ Project Structure
+## 🏗️ Architecture
 
 ```
 Weather-App/
-├── weather-backend/
+│
+├── weather-backend/                    ← Spring Boot REST API  (port 8080)
 │   └── src/main/java/com/weather/
-│       ├── controller/        WeatherController.java
-│       ├── service/           WeatherService.java
-│       ├── dto/               CurrentWeatherDTO, ForecastDTO, ErrorResponseDTO
-│       ├── config/            WeatherApiConfig, CorsConfig, RestTemplateConfig
-│       ├── exception/         GlobalExceptionHandler, Custom Exceptions
-│       ├── model/             WeatherApiResponse
-│       ├── util/              WeatherUtil
+│       ├── controller/                 WeatherController.java
+│       ├── service/                    WeatherService.java
+│       ├── dto/                        CurrentWeatherDTO · ForecastDTO · ErrorResponseDTO
+│       ├── config/                     WeatherApiConfig · CorsConfig · RestTemplateConfig
+│       ├── exception/                  GlobalExceptionHandler · Custom Exceptions
+│       ├── model/                      WeatherApiResponse
+│       ├── util/                       WeatherUtil
 │       └── WeatherApplication.java
 │
-├── weather-frontend/
+├── weather-frontend/                   ← React + Vite SPA       (port 5173)
 │   └── src/
-│       ├── components/        Navbar, Footer, SearchBar, WeatherCard, ForecastCard,
-│       │                      SearchHistory, FavoriteCities, LoadingSpinner, ErrorAlert
-│       ├── pages/             Home.jsx
-│       ├── services/          weatherService.js
-│       ├── hooks/             useWeather, useTheme, useLocalStorage
-│       ├── utils/             weatherUtils.js
-│       └── css/               global.css
+│       ├── components/                 Navbar · Footer · SearchBar · WeatherCard
+│       │                               ForecastCard · SearchHistory · FavoriteCities
+│       │                               LoadingSpinner · ErrorAlert · ThemeToggle
+│       ├── pages/                      Home.jsx
+│       ├── services/                   weatherService.js  (Axios)
+│       ├── hooks/                      useWeather · useTheme · useLocalStorage
+│       ├── utils/                      weatherUtils.js
+│       └── css/                        global.css
 │
 ├── README.md
 └── .gitignore
 ```
 
-### Request Flow
-
-```
-React (5173) → Axios → Spring Boot (8080) → OpenWeatherMap API → JSON → React UI
-```
 
 ---
 
 ## 🚀 Getting Started
 
-**Prerequisites:** Java 21+, Node.js 18+
+> **Prerequisites:** Java 21+ &nbsp;|&nbsp; Node.js 18+
 
-### Backend
+### ① Start the Backend
+
 ```bash
 cd weather-backend
 ./mvnw spring-boot:run
 ```
-> Runs at `http://localhost:8080`
 
-### Frontend
+API available at → `http://localhost:8080`
+
+### ② Start the Frontend
+
 ```bash
 cd weather-frontend
 npm install
 npm run dev
 ```
-> Runs at `http://localhost:5173`
+
+App available at → `http://localhost:5173`
 
 ---
 
-## 🔌 API Endpoints
+## 🔌 REST API Endpoints
 
 | Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/weather/current?city=London` | Current weather |
-| `GET` | `/api/weather/forecast?city=London` | 5-day forecast |
-| `GET` | `/api/weather/health` | Health check |
+|:---:|---|---|
+| `GET` | `/api/weather/current?city=London` | Current weather for a city |
+| `GET` | `/api/weather/forecast?city=London` | 5-day / 3-hour forecast |
+| `GET` | `/api/weather/health` | Service health check |
 
-**Error Response Format**
+<details>
+<summary>📄 Error Response Format</summary>
+
 ```json
 {
   "timestamp": "2025-07-11T10:30:00",
@@ -162,7 +127,22 @@ npm run dev
 }
 ```
 
+</details>
+
 ---
 
-wait for few minutes 
-I will comeback in till days 
+## ⚙️ Configuration
+
+`weather-backend/src/main/resources/application.properties`
+
+```properties
+api.key=your_openweathermap_api_key
+api.base-url=https://api.openweathermap.org/data/2.5
+server.port=8080
+```
+
+> Get a free API key → [openweathermap.org/api](https://openweathermap.org/api)
+
+---
+
+
