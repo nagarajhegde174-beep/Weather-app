@@ -1,7 +1,28 @@
+import { useEffect } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
+import weatherService from '../services/weatherService';
 
 export const useSearchHistory = () => {
-  const [history, setHistory, clearHistory] = useLocalStorage('weather-search-history', []);
+  const [history, setHistory, clearLocalHistory] = useLocalStorage('weather-search-history', []);
+
+  const fetchHistory = async () => {
+    try {
+      const res = await weatherService.getSearchHistory();
+      if (res && res.history) {
+        const mapped = res.history.map((h) => ({
+          city: h.city,
+          timestamp: h.timestamp || Date.now(),
+        }));
+        setHistory(mapped);
+      }
+    } catch {
+      // Fallback to local storage if backend call is unavailable
+    }
+  };
+
+  useEffect(() => {
+    fetchHistory();
+  }, []);
 
   const addToHistory = (city) => {
     setHistory((prev) => {
@@ -10,11 +31,25 @@ export const useSearchHistory = () => {
     });
   };
 
-  const removeFromHistory = (city) => {
+  const removeFromHistory = async (city) => {
     setHistory((prev) => prev.filter((c) => c.city !== city));
+    try {
+      await weatherService.removeSearchHistoryCity(city);
+    } catch {
+      // Ignore backend sync failure
+    }
   };
 
-  return { history, addToHistory, removeFromHistory, clearHistory };
+  const clearHistory = async () => {
+    clearLocalHistory();
+    try {
+      await weatherService.clearSearchHistory();
+    } catch {
+      // Ignore backend sync failure
+    }
+  };
+
+  return { history, addToHistory, removeFromHistory, clearHistory, fetchHistory };
 };
 
 const SearchHistory = ({ history, onSearch, onRemove, onClear }) => {

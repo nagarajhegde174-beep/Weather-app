@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const apiClient = axios.create({
   baseURL: '/api',
   timeout: 15000,
@@ -9,16 +8,10 @@ const apiClient = axios.create({
   },
 });
 
-
 apiClient.interceptors.request.use(
-  (config) => {
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (config) => config,
+  (error) => Promise.reject(error)
 );
-
 
 apiClient.interceptors.response.use(
   (response) => response.data,
@@ -44,21 +37,49 @@ apiClient.interceptors.response.use(
   }
 );
 
-
 const weatherService = {
-  
+  getWeatherSummary: (city) => {
+    return apiClient.get('/weather', { params: { city } });
+  },
+
   getCurrentWeather: (city) => {
     return apiClient.get('/weather/current', { params: { city } });
   },
 
-  
   getForecast: (city) => {
     return apiClient.get('/weather/forecast', { params: { city } });
   },
 
-  
+  getSearchHistory: () => {
+    return apiClient.get('/weather/history');
+  },
+
+  clearSearchHistory: () => {
+    return apiClient.delete('/weather/history');
+  },
+
+  removeSearchHistoryCity: (city) => {
+    return apiClient.delete(`/weather/history/${encodeURIComponent(city)}`);
+  },
+
+  getFavorites: () => {
+    return apiClient.get('/favorites');
+  },
+
+  addFavorite: (city) => {
+    return apiClient.post('/favorites', { city });
+  },
+
+  removeFavorite: (city) => {
+    return apiClient.delete(`/favorites/${encodeURIComponent(city)}`);
+  },
+
+  getStatistics: () => {
+    return apiClient.get('/weather/statistics');
+  },
+
   healthCheck: () => {
-    return apiClient.get('/weather/health');
+    return apiClient.get('/health');
   },
 };
 

@@ -8,16 +8,17 @@ import ErrorAlert from '../components/ErrorAlert';
 import { SkeletonLoader } from '../components/LoadingSpinner';
 import SearchHistory, { useSearchHistory } from '../components/SearchHistory';
 import FavoriteCities, { useFavorites } from '../components/FavoriteCities';
+import WeatherStatsCard from '../components/WeatherStatsCard';
 import useWeather from '../hooks/useWeather';
 
 const Home = () => {
-  const { currentWeather, forecast, loading, error, fetchWeather, clearError } = useWeather();
+  const { currentWeather, forecast, weatherSummary, loading, error, fetchWeather, clearError } = useWeather();
   const { history, addToHistory, removeFromHistory, clearHistory } = useSearchHistory();
   const { favorites, addFavorite, removeFavorite, isFavorite } = useFavorites();
   const [unit, setUnit] = useState(() => localStorage.getItem('weather-unit') || 'C');
   const [lastCity, setLastCity] = useState('');
+  const [statsTrigger, setStatsTrigger] = useState(0);
 
-  
   useEffect(() => {
     localStorage.setItem('weather-unit', unit);
   }, [unit]);
@@ -26,10 +27,14 @@ const Home = () => {
     setLastCity(city);
     addToHistory(city);
     fetchWeather(city);
+    setStatsTrigger((prev) => prev + 1);
   };
 
   const handleRefresh = () => {
-    if (lastCity) fetchWeather(lastCity);
+    if (lastCity) {
+      fetchWeather(lastCity);
+      setStatsTrigger((prev) => prev + 1);
+    }
   };
 
   const hasData = currentWeather && forecast;
@@ -40,8 +45,6 @@ const Home = () => {
 
       <main className="flex-grow-1 py-4">
         <div className="container">
-
-          
           <div className="text-center mb-5">
             <h1 className="fw-bold mb-2" style={{
               fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
@@ -51,12 +54,11 @@ const Home = () => {
               Weather Dashboard
             </h1>
             <p style={{ color: 'var(--text-muted)', marginBottom: '28px' }}>
-              Real-time weather and 5-day forecast for any city
+              Real-time weather and 5-day forecast for any city powered by Spring Boot Backend
             </p>
 
             <SearchBar onSearch={handleSearch} loading={loading} />
 
-            
             <div className="d-flex justify-content-center mt-3">
               <div className="unit-toggle">
                 <button
@@ -77,18 +79,15 @@ const Home = () => {
             </div>
           </div>
 
-          
           <div className="row g-4">
-
-            
             <div className="col-lg-3 order-lg-1 order-2">
-              <div className="glass-card p-3">
+              <div className="glass-card p-3 mb-4">
                 <FavoriteCities
                   favorites={favorites}
                   currentCity={currentWeather?.name}
                   onSearch={handleSearch}
-                  onAdd={addFavorite}
-                  onRemove={removeFavorite}
+                  onAdd={(c) => { addFavorite(c); setStatsTrigger((prev) => prev + 1); }}
+                  onRemove={(c) => { removeFavorite(c); setStatsTrigger((prev) => prev + 1); }}
                   isFavorite={isFavorite}
                 />
                 <hr style={{ borderColor: 'var(--border-color)' }} />
@@ -99,20 +98,19 @@ const Home = () => {
                   onClear={clearHistory}
                 />
               </div>
+
+              <div className="glass-card p-3">
+                <WeatherStatsCard refreshTrigger={statsTrigger} />
+              </div>
             </div>
 
-            
             <div className="col-lg-9 order-lg-2 order-1">
-
-              
               {error && !loading && (
                 <ErrorAlert error={error} onDismiss={clearError} />
               )}
 
-              
               {loading && <SkeletonLoader />}
 
-              
               {!loading && !error && hasData && (
                 <>
                   <WeatherCard
@@ -120,12 +118,12 @@ const Home = () => {
                     unit={unit}
                     onRefresh={handleRefresh}
                     loading={loading}
+                    summary={weatherSummary}
                   />
                   <ForecastCard data={forecast} unit={unit} />
                 </>
               )}
 
-              
               {!loading && !error && !hasData && (
                 <div className="glass-card p-5 text-center fade-in">
                   <i className="bi bi-cloud-sun"
@@ -139,10 +137,8 @@ const Home = () => {
                   </p>
                 </div>
               )}
-
             </div>
           </div>
-
         </div>
       </main>
 

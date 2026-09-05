@@ -20,12 +20,12 @@ const StatBox = ({ icon, label, value }) => (
   </div>
 );
 
-const WeatherCard = ({ data, unit, onRefresh, loading }) => {
+const WeatherCard = ({ data, unit, onRefresh, loading, summary }) => {
   const [copied, setCopied] = useState(false);
 
   if (!data) return null;
 
-  const { name, coordinates, weather, main, wind, clouds, sys, visibility, dt, timezone } = data;
+  const { name, coordinates, weather, main, wind, clouds, sys, visibility, dt, timezone, cached } = data;
   const w = weather?.[0];
 
   const handleCopy = async () => {
@@ -44,8 +44,7 @@ Description: ${capitalize(w?.description)}`;
 
   return (
     <div className="weather-main-card fade-in mb-4">
-
-      
+      {/* Top Header & Actions */}
       <div className="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
         <div>
           <h2 className="fw-bold mb-1" style={{ color: 'var(--text-primary)', fontSize: '1.8rem' }}>
@@ -54,6 +53,11 @@ Description: ${capitalize(w?.description)}`;
             <span className="ms-2" style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 400 }}>
               {sys?.country}
             </span>
+            {cached && (
+              <span className="badge bg-secondary ms-2" style={{ fontSize: '0.7rem', verticalAlign: 'middle' }}>
+                <i className="bi bi-lightning-charge-fill me-1"></i>Cached
+              </span>
+            )}
           </h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>
             <i className="bi bi-calendar3 me-1"></i>
@@ -63,7 +67,6 @@ Description: ${capitalize(w?.description)}`;
           </p>
         </div>
 
-        
         <div className="d-flex gap-2">
           <button
             className="theme-toggle-btn"
@@ -87,7 +90,17 @@ Description: ${capitalize(w?.description)}`;
         </div>
       </div>
 
-      
+      {/* Weather Summary Alert from Backend */}
+      {summary && (
+        <div className="alert alert-info py-2 px-3 mb-3 d-flex align-items-center gap-2" style={{ borderRadius: '12px', fontSize: '0.9rem' }}>
+          <i className="bi bi-info-circle-fill text-info fs-5"></i>
+          <div>
+            <strong>Backend Weather Insight:</strong> {summary}
+          </div>
+        </div>
+      )}
+
+      {/* Main Temp & Icon Display */}
       <div className="row align-items-center mb-4">
         <div className="col-8">
           <div className="temperature-display">{formatTemp(main?.temp, unit)}</div>
@@ -111,7 +124,7 @@ Description: ${capitalize(w?.description)}`;
 
       <hr style={{ borderColor: 'var(--border-color)', margin: '0 0 20px' }} />
 
-      
+      {/* Detailed Weather Grid */}
       <div className="row g-3">
         <div className="col-6 col-md-4 col-lg-2">
           <StatBox icon="bi-droplet-fill"    label="Humidity"    value={`${main?.humidity}%`} />
