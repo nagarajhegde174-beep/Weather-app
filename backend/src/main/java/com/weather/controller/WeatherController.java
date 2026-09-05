@@ -2,6 +2,7 @@ package com.weather.controller;
 
 import com.weather.dto.CurrentWeatherDTO;
 import com.weather.dto.ForecastDTO;
+import com.weather.model.WeatherResponse;
 import com.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,13 @@ import java.util.Map;
 public class WeatherController {
 
     private final WeatherService weatherService;
+
+    
+    @GetMapping
+    public ResponseEntity<WeatherResponse> getWeather(@RequestParam String city) {
+        log.info("GET /api/weather?city={}", city);
+        return ResponseEntity.ok(weatherService.getWeatherSummary(city));
+    }
 
     
     @GetMapping("/current")

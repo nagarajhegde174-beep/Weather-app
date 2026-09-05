@@ -3,6 +3,7 @@ package com.weather.service;
 import com.weather.config.WeatherApiConfig;
 import com.weather.dto.CurrentWeatherDTO;
 import com.weather.dto.ForecastDTO;
+import com.weather.model.WeatherResponse;
 import com.weather.exception.CityNotFoundException;
 import com.weather.exception.WeatherApiException;
 import com.weather.util.WeatherUtil;
@@ -63,6 +64,22 @@ public class WeatherService {
     }
 
     
+
+    public WeatherResponse getWeatherSummary(String city) {
+        CurrentWeatherDTO dto = getCurrentWeather(city);
+        return WeatherResponse.builder()
+                .city(dto.getName())
+                .country(dto.getSys() != null ? dto.getSys().getCountry() : null)
+                .temperature(dto.getMain() != null ? dto.getMain().getTemp() : null)
+                .feelsLike(dto.getMain() != null ? dto.getMain().getFeelsLike() : null)
+                .tempMin(dto.getMain() != null ? dto.getMain().getTempMin() : null)
+                .tempMax(dto.getMain() != null ? dto.getMain().getTempMax() : null)
+                .humidity(dto.getMain() != null ? dto.getMain().getHumidity() : null)
+                .windSpeed(dto.getWind() != null ? dto.getWind().getSpeed() : null)
+                .description((dto.getWeather() != null && !dto.getWeather().isEmpty()) ? dto.getWeather().get(0).getDescription() : null)
+                .icon((dto.getWeather() != null && !dto.getWeather().isEmpty()) ? dto.getWeather().get(0).getIcon() : null)
+                .build();
+    }
 
     private String buildUrl(String endpoint, String city) {
         return UriComponentsBuilder
