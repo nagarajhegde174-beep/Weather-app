@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png" height="60" alt="OpenWeatherMap" />
-
 # 🌤️ Weather App
 
 **Full Stack Weather Application — Spring Boot + React**
