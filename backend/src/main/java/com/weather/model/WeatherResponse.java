@@ -24,4 +24,9 @@ public class WeatherResponse implements WeatherApiResponse {
     private Double windSpeed;
     private String description;
     private String icon;
+    private String summary;
+    private Boolean cached;
+    private String timestamp;
+    private Double fahrenheitTemp;
+    private Double windSpeedMph;
 }

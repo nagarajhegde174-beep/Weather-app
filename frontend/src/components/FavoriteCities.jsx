@@ -1,23 +1,51 @@
+import { useEffect } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
+import weatherService from '../services/weatherService';
 
 export const useFavorites = () => {
   const [favorites, setFavorites] = useLocalStorage('weather-favorites', []);
 
-  const addFavorite = (city) => {
+  const fetchFavorites = async () => {
+    try {
+      const res = await weatherService.getFavorites();
+      if (res && res.favorites) {
+        setFavorites(res.favorites.map((f) => f.city));
+      }
+    } catch {
+      // Fallback to local storage if backend unavailable
+    }
+  };
+
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
+
+  const addFavorite = async (city) => {
+    if (!city) return;
     setFavorites((prev) => {
       if (prev.some((c) => c.toLowerCase() === city.toLowerCase())) return prev;
       return [...prev, city];
     });
+    try {
+      await weatherService.addFavorite(city);
+    } catch {
+      // Ignore backend sync failure
+    }
   };
 
-  const removeFavorite = (city) => {
+  const removeFavorite = async (city) => {
     setFavorites((prev) => prev.filter((c) => c.toLowerCase() !== city.toLowerCase()));
+    try {
+      await weatherService.removeFavorite(city);
+    } catch {
+      // Ignore backend sync failure
+    }
   };
 
   const isFavorite = (city) =>
     favorites.some((c) => c.toLowerCase() === city?.toLowerCase());
 
-  return { favorites, addFavorite, removeFavorite, isFavorite };
+  return { favorites, addFavorite, removeFavorite, isFavorite, fetchFavorites };
 };
 
 const FavoriteCities = ({ favorites, currentCity, onSearch, onAdd, onRemove, isFavorite }) => {
@@ -29,7 +57,6 @@ const FavoriteCities = ({ favorites, currentCity, onSearch, onAdd, onRemove, isF
           Favorite Cities
         </h6>
 
-        
         {currentCity && !isFavorite(currentCity) && (
           <button
             className="btn btn-sm"

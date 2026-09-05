@@ -10,10 +10,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 
-
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(InvalidCityException.class)
+    public ResponseEntity<ErrorResponseDTO> handleInvalidCity(
+            InvalidCityException ex, HttpServletRequest request) {
+        log.error("Invalid city name provided: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponseDTO(HttpStatus.BAD_REQUEST.value(),
+                        "Invalid City Input", ex.getMessage(), request.getRequestURI()));
+    }
 
     @ExceptionHandler(CityNotFoundException.class)
     public ResponseEntity<ErrorResponseDTO> handleCityNotFound(
@@ -28,8 +36,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseDTO> handleWeatherApi(
             WeatherApiException ex, HttpServletRequest request) {
         log.error("Weather API error: {}", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(
-                new ErrorResponseDTO(HttpStatus.SERVICE_UNAVAILABLE.value(),
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(
+                new ErrorResponseDTO(HttpStatus.BAD_GATEWAY.value(),
                         "Weather API Error", ex.getMessage(), request.getRequestURI()));
     }
 
